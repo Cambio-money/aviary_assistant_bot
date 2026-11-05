@@ -152,7 +152,7 @@ try {
   const linked = await postActivity(activity(), await signToken());
   check('inbound personal message with a validly signed token: 200', linked.status === 200);
   await eventually(() => replies.length, (n) => n >= 1);
-  check('the user was told they are linked', replies.at(-1) === 'You will receive Aviary Assistant reports here.', replies);
+  check('the user was told they are linked', replies.at(-1) === MESSAGES.linked, replies);
 
   const links = await eventually(() => gertrude.links(), (l) => l.length > 0);
   const [link] = links;

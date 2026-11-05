@@ -129,7 +129,7 @@ Either:
 Or for an app already registered with the CLI: `teams app manifest upload appPackage/build/manifest.json <appId>`.
 
 Installing in personal scope is what produces the `installationUpdate add` activity that links the user. The user
-sees "You will receive Aviary Assistant reports here." once linked, or the not-set-up message if Gertrude does not
+is told the chat is for report delivery only (questions go to the Assistant in the Aviary app) once linked, or the not-set-up message if Gertrude does not
 know their email.
 
 ### 8. Tenant admin consent

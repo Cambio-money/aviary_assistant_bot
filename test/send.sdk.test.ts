@@ -39,11 +39,14 @@ describe('/v1/send through the real SDK client against a fake Bot Connector', ()
     expect(req.headers.authorization).toMatch(/^Bearer ey/);
     expect(req.body).toMatchObject({
       type: 'message',
-      text: FALLBACK_TEXT,
+      summary: FALLBACK_TEXT,
       attachments: [{ contentType: 'application/vnd.microsoft.card.adaptive', content: card }],
       from: { id: CLIENT_ID },
       conversation: { id: CONVERSATION_ID },
     });
+    // The card alone: any `text` would be drawn by Teams as a second bubble above it.
+    expect(req.body).not.toHaveProperty('text');
+    expect((req.body as { attachments: unknown[] }).attachments).toHaveLength(1);
     expect(JSON.stringify(req.body)).toContain(CARD_TEXT);
     expect(rowFor(r.key)).toMatchObject({ status: 'sent', activity_id: 'connector-id-9' });
   });
