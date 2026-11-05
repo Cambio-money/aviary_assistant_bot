@@ -19,7 +19,7 @@ Headers: `Authorization: Bearer <GERTRUDE_TO_BOT_TOKEN>`, `Idempotency-Key: <del
   "conversation_id": "a:1AbC...",
   "service_url": "https://smba.trafficmanager.net/amer/",
   "card": { "type": "AdaptiveCard", "version": "1.5", "body": [ "..." ], "actions": [ "..." ] },
-  "fallback_text": "Plain text shown where cards are not supported"
+  "fallback_text": "Plain text used for the notification preview"
 }
 ```
 
@@ -34,6 +34,9 @@ must be a non-empty string of at most 512 characters.
 
 `card` is passed through to Teams unchanged after validation (object, `type` is `AdaptiveCard`,
 serialized size at most 25 KB). The bot does not interpret it.
+
+The message is the card alone. `fallback_text` is sent as the activity's `summary` (the notification and
+chat-list preview), not as its `text`: Teams shows `text` as a second bubble above the card.
 
 | Bot answers | Body | Meaning for Gertrude (`DeliveryResult`) |
 |---|---|---|
