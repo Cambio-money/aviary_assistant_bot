@@ -4,6 +4,11 @@ import { normalizeServiceUrl, type ServiceUrlPolicy } from './serviceUrl.js';
 import { PreDispatchError } from './teamsErrors.js';
 
 export type TeamsTarget = { conversationId: string; serviceUrl: string };
+/**
+ * `text` is the plain-text version of the card. It goes out as the activity's `summary` (the
+ * notification and chat-list preview), never as the activity's `text`: Teams draws `text` as a
+ * second bubble above the card, and a report must arrive as the card alone.
+ */
 export type TeamsMessage = { text: string; card: Record<string, unknown> };
 export type SendHooks = {
   /** Called when the request is handed to the HTTP transport (after the bot token was acquired). */
@@ -44,7 +49,7 @@ export class SdkTeamsSender implements TeamsSender {
 
     const params = toActivityParams({
       type: 'message',
-      text: message.text,
+      summary: message.text,
       attachments: [{ contentType: ADAPTIVE_CARD_CONTENT_TYPE, content: message.card }],
     } as never);
     const res = await api.conversations.createActivity(target.conversationId, {

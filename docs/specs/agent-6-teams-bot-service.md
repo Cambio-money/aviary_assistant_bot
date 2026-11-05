@@ -61,7 +61,8 @@ agent 7 against the same contract. Do not touch Gertrude.
   - On `install.add` and on a personal-scope `message`: establish the user's email (contract section 4),
     call Gertrude `POST /api/internal/teams/verify`, and on `200` store or refresh the reference for the
     returned `user_id` (rules in contract section 3, including the `REFERENCE_CONFLICT` refusal). Reply
-    once, briefly: linked ("You will receive Aviary Assistant reports here.") or not set up (polite
+    once, briefly: linked ("You're all set to receive Aviary Assistant reports here. This chat is for report delivery only, so I
+    can't reply to messages. To ask questions about a report, open the Assistant in the Aviary app.") or not set up (polite
     refusal, no detail). Anything else a user types gets that same one-line help; no chat features.
   - Ignore everything that is not a personal-scope one-to-one conversation (group chats, channels,
     team installs): reply that this bot only works in a personal chat and store nothing.
@@ -71,7 +72,8 @@ agent 7 against the same contract. Do not touch Gertrude.
     boundary.
 - **Outbound (`POST /v1/send`)**: exactly contract section 2: bearer check (constant-time compare),
   strict body validation (zod), the idempotency protocol, the result table. Send the card as an Adaptive
-  Card attachment with `fallback_text` as the message text, via the SDK's proactive send to the stored
+  Card attachment alone (`fallback_text` goes out as the activity `summary`, the notification preview, never as
+  message text, which Teams shows as a second bubble), via the SDK's proactive send to the stored
   conversation (`app.send(conversation_id, activity)` as in Crow). Map Teams errors to the contract
   outcomes: not installed or blocked (403-class) to `blocked_or_uninstalled` and delete nothing;
   `429` or a provably-not-accepted transient failure to retryable; **ambiguous** (timeout, connection

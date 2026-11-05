@@ -3,7 +3,8 @@ import type { Logger } from './logger.js';
 import { normalizeServiceUrl, type ServiceUrlPolicy } from './serviceUrl.js';
 
 export const MESSAGES = {
-  linked: 'You will receive Aviary Assistant reports here.',
+  linked:
+    "You're all set to receive Aviary Assistant reports here. This chat is for report delivery only, so I can't reply to messages. To ask questions about a report, open the Assistant in the Aviary app.",
   notSetUp: 'This account is not set up to receive Aviary Assistant reports. Please contact your Aviary administrator.',
   temporary: 'Aviary Assistant could not complete setup right now. Please try again later.',
   personalOnly: 'This bot only works in a personal chat.',

@@ -29,7 +29,7 @@ const rowFor = (key: string) => {
 };
 
 describe('POST /v1/send: contract section 2 result table', () => {
-  it('200 sent: passes the card through unchanged with fallback_text as the message text', async () => {
+  it('200 sent: passes the card through unchanged with fallback_text as the preview text', async () => {
     const card = sampleCard({ extra: { nested: [1, 2, 3] } });
     sender.enqueue({ type: 'ok', activityId: 'act-xyz' });
     const r = await h.send(sendBody({ card }));
